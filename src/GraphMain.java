@@ -32,7 +32,7 @@ public class GraphMain {
         }
 
         // Check if the user wants to add more vertices
-        System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak): ");
+        System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak) ");
         String response = InputUtil.inputString("");
         if (response.equalsIgnoreCase("ya")) {
             while (graphServices.vertexCount() < maxVertices) {
