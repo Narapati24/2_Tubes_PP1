@@ -28,10 +28,10 @@ public class GraphServiceImpl implements GraphServices {
         int startIndex = findVertexIndex(startLabel);
         int endIndex = findVertexIndex(endLabel);
         if (startIndex != -1 && endIndex != -1) {
-            adjMat[startIndex][endIndex] = 1; // Set to 1 to represent an edge exists
-            adjMat[endIndex][startIndex] = 1; // For undirected graph, set both directions
+            adjMat[startIndex][endIndex] = 1;
+            adjMat[endIndex][startIndex] = 1;
         } else {
-            System.out.println("Error: Vertices not found");
+            System.out.println("Error: Simpul tidak ditemukan");
         }
     }
 
@@ -75,10 +75,10 @@ public class GraphServiceImpl implements GraphServices {
     public boolean vertexExists(String label) {
         for (Vertex vertex : vertexList) {
             if (vertex.getLabel().equals(label)) {
-                return true; // Vertex ditemukan
+                return true; // Simpul ditemukan
             }
         }
-        return false; // Vertex tidak ditemukan
+        return false; // Simpul tidak ditemukan
     }
 
     @Override
