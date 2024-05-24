@@ -12,17 +12,17 @@ public class GraphMain {
         displayAdjacencyMatrix(graphServices);
     }
     private static void addVertices(GraphServices graphServices, int maxVertices) {
-        String[] expectedTypes = {"dosen", "kelas", "mahasiswa"};
+        String[] expectedTypes = {"Dosen", "Mata Kuliah", "Mahasiswa"};
         for (String expectedType : expectedTypes) {
             String name = GraphView.promptName(expectedType);
             switch (expectedType) {
-                case "dosen":
+                case "Dosen":
                     graphServices.addVertex(new Dosen(name));
                     break;
-                case "kelas":
+                case "Mata Kuliah":
                     graphServices.addVertex(new Kelas(name));
                     break;
-                case "mahasiswa":
+                case "Mahasiswa":
                     graphServices.addVertex(new Mahasiswa(name));
                     break;
                 default:
@@ -32,7 +32,7 @@ public class GraphMain {
         }
 
         // Check if the user wants to add more vertices
-        System.out.print("Apakah Anda ingin menambahkan lebih banyak vertex? (ya/tidak): ");
+        System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak): ");
         String response = InputUtil.inputString("");
         if (response.equalsIgnoreCase("ya")) {
             while (graphServices.vertexCount() < maxVertices) {
@@ -42,17 +42,17 @@ public class GraphMain {
                 }
                 String name = GraphView.promptName(vertexType);
                 switch (vertexType) {
-                    case "dosen":
+                    case "Dosen":
                         graphServices.addVertex(new Dosen(name));
                         break;
-                    case "kelas":
+                    case "Mata Kuliah":
                         graphServices.addVertex(new Kelas(name));
                         break;
-                    case "mahasiswa":
+                    case "Mahasiswa":
                         graphServices.addVertex(new Mahasiswa(name));
                         break;
                     default:
-                        System.out.println("Tipe vertex tidak valid.");
+                        System.out.println("Simpul tidak valid.");
                         break;
                 }
             }

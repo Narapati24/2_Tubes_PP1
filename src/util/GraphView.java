@@ -3,19 +3,19 @@ package util;
 public class GraphView {
 
     public static int promptMaxVertices() {
-        return InputUtil.inputInt("Masukkan jumlah maksimal vertex:");
+        return InputUtil.inputInt("Masukkan jumlah simpul minimal 3");
     }
 
     public static String promptVertexType() {
-        return InputUtil.inputString("Tambah vertex (dosen, kelas, mahasiswa) atau ketik 'selesai' untuk selesai:");
+        return InputUtil.inputString("Tambah Simpul (Dosen, Mata Kuliah, Mahasiswa) atau ketik 'selesai' untuk selesai");
     }
 
     public static String promptName(String vertexType) {
-        return InputUtil.inputString("Masukkan nama " + vertexType + ":");
+        return InputUtil.inputString("Masukkan Nama " + vertexType );
     }
 
     public static String promptEdge() {
-        return InputUtil.inputString("Tambah edge (format: startLabel endLabel) atau ketik 'selesai' untuk selesai:");
+        return InputUtil.inputString("Tambah garis (format: masukan nama simpul 1 dan 2) atau ketik 'selesai' untuk selesai");
     }
 
     public static void displayError(String message) {
