@@ -12,51 +12,54 @@ public class GraphMain {
         displayAdjacencyMatrix(graphServices);
     }
     private static void addVertices(GraphServices graphServices, int maxVertices) {
-        String[] expectedTypes = {"Dosen", "Mata Kuliah", "Mahasiswa"};
-        for (String expectedType : expectedTypes) {
-            String name = GraphView.promptName(expectedType);
+        while (graphServices.vertexCount() < maxVertices) {
+            String name, expectedType = null;
+            int choice = MenuView.displayMenu();
+            if (choice == 4) break;
+            switch (choice){
+                case 1 -> expectedType = "Dosen";
+                case 2 -> expectedType = "Mata Kuliah";
+                case 3 -> expectedType = "Mahasiswa";
+                default -> {
+                    System.out.println("Pilihan Tidak Ada");
+                    continue;
+                }
+            }
+            name = GraphView.promptName(expectedType);
             switch (expectedType) {
-                case "Dosen":
-                    graphServices.addVertex(new Dosen(name));
-                    break;
-                case "Mata Kuliah":
-                    graphServices.addVertex(new Kelas(name));
-                    break;
-                case "Mahasiswa":
-                    graphServices.addVertex(new Mahasiswa(name));
-                    break;
-                default:
-                    System.out.println("Tipe vertex tidak valid.");
-                    break;
+                case "Dosen" -> graphServices.addVertex(new Dosen(name));
+                case "Mata Kuliah" -> graphServices.addVertex(new Kelas(name));
+                case "Mahasiswa" -> graphServices.addVertex(new Mahasiswa(name));
+                default -> System.out.println("Tipe vertex tidak valid.");
             }
         }
 
         // Check if the user wants to add more vertices
-        System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak): ");
-        String response = InputUtil.inputString("");
-        if (response.equalsIgnoreCase("ya")) {
-            while (graphServices.vertexCount() < maxVertices) {
-                String vertexType = GraphView.promptVertexType();
-                if (vertexType.equalsIgnoreCase("selesai")) {
-                    break;
-                }
-                String name = GraphView.promptName(vertexType);
-                switch (vertexType) {
-                    case "Dosen":
-                        graphServices.addVertex(new Dosen(name));
-                        break;
-                    case "Mata Kuliah":
-                        graphServices.addVertex(new Kelas(name));
-                        break;
-                    case "Mahasiswa":
-                        graphServices.addVertex(new Mahasiswa(name));
-                        break;
-                    default:
-                        System.out.println("Simpul tidak valid.");
-                        break;
-                }
-            }
-        }
+        //System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak): ");
+        //String response = InputUtil.inputString("");
+        //if (response.equalsIgnoreCase("ya")) {
+        //    while (graphServices.vertexCount() < maxVertices) {
+        //        String vertexType = GraphView.promptVertexType();
+        //        if (vertexType.equalsIgnoreCase("selesai")) {
+        //            break;
+        //        }
+        //        String name = GraphView.promptName(vertexType);
+        //        switch (vertexType) {
+        //            case "Dosen":
+        //                graphServices.addVertex(new Dosen(name));
+        //                break;
+        //            case "Mata Kuliah":
+        //                graphServices.addVertex(new Kelas(name));
+        //                break;
+        //            case "Mahasiswa":
+        //                graphServices.addVertex(new Mahasiswa(name));
+        //                break;
+        //            default:
+        //                System.out.println("Simpul tidak valid.");
+        //                break;
+        //        }
+        //   }
+        //}
     }
 
 
