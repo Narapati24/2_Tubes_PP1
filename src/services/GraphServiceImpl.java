@@ -2,6 +2,8 @@ package services;
 
 import entity.Vertex;
 
+import java.util.ArrayList;
+
 public class GraphServiceImpl implements GraphServices {
     private Vertex vertexList[];
     private int adjMat[][];
@@ -51,7 +53,6 @@ public class GraphServiceImpl implements GraphServices {
         }
     }
 
-
     private int findVertexIndex(String label) {
         for (int i = 0; i < nVerts; i++) {
             if (vertexList[i].getLabel().equals(label)) {
@@ -96,5 +97,27 @@ public class GraphServiceImpl implements GraphServices {
         }
         // Kembalikan null jika vertex tidak ditemukan
         return null;
+    }
+
+
+    public ArrayList<String> getAllLabel(){
+        ArrayList<String> vertex = new ArrayList<String>();
+        for (int i = 0; i < vertexList.length; i++){
+            vertex.add(vertexList[i].getLabel());
+        }
+        return vertex;
+    }
+
+    public ArrayList<String> getAllEdges(){
+        ArrayList<String> edge = new ArrayList<String>();
+
+        for (int i = 0; i < adjMat.length; i++){
+            for (int o = 0; o < adjMat[1].length ;o ++){
+                if(adjMat[i][o] == 1){
+                    edge.add("{\"from\": \""+ vertexList[i].getLabel() +"\", \"to\": \""+ vertexList[o].getLabel() +"\"}");
+                }
+            }
+        }
+        return edge;
     }
 }

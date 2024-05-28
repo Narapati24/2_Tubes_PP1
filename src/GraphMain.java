@@ -1,5 +1,6 @@
 
 import entity.*;
+import java.util.ArrayList;
 import services.*;
 import util.*;
 public class GraphMain {
@@ -9,8 +10,11 @@ public class GraphMain {
 
        addVertices(graphServices, maxVerts);
        addEdges(graphServices);
-        displayAdjacencyMatrix(graphServices);
+
+       displayAdjacencyMatrix(graphServices);
+       GraphAPI.kirimData(graphServices.getAllLabel(), graphServices.getAllEdges());
     }
+
     private static void addVertices(GraphServices graphServices, int maxVertices) {
         while (graphServices.vertexCount() < maxVertices) {
             String name, expectedType = null;
