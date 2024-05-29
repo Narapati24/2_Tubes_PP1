@@ -2,6 +2,8 @@ package services;
 
 import entity.Vertex;
 
+import java.util.ArrayList;
+
 public class GraphServiceImpl implements GraphServices {
     private Vertex vertexList[];
     private int adjMat[][];
@@ -28,10 +30,10 @@ public class GraphServiceImpl implements GraphServices {
         int startIndex = findVertexIndex(startLabel);
         int endIndex = findVertexIndex(endLabel);
         if (startIndex != -1 && endIndex != -1) {
-            adjMat[startIndex][endIndex] = 1; // Set to 1 to represent an edge exists
-            adjMat[endIndex][startIndex] = 1; // For undirected graph, set both directions
+            adjMat[startIndex][endIndex] = 1;
+            adjMat[endIndex][startIndex] = 1;
         } else {
-            System.out.println("Error: Vertices not found");
+            System.out.println("Error: Simpul tidak ditemukan");
         }
     }
 
@@ -50,7 +52,6 @@ public class GraphServiceImpl implements GraphServices {
             System.out.println();
         }
     }
-
 
     private int findVertexIndex(String label) {
         for (int i = 0; i < nVerts; i++) {
@@ -75,10 +76,10 @@ public class GraphServiceImpl implements GraphServices {
     public boolean vertexExists(String label) {
         for (Vertex vertex : vertexList) {
             if (vertex.getLabel().equals(label)) {
-                return true; // Vertex ditemukan
+                return true; // Simpul ditemukan
             }
         }
-        return false; // Vertex tidak ditemukan
+        return false; // Simpul tidak ditemukan
     }
 
     @Override
@@ -96,5 +97,27 @@ public class GraphServiceImpl implements GraphServices {
         }
         // Kembalikan null jika vertex tidak ditemukan
         return null;
+    }
+
+
+    public ArrayList<String> getAllLabel(){
+        ArrayList<String> vertex = new ArrayList<String>();
+        for (int i = 0; i < vertexList.length; i++){
+            vertex.add(vertexList[i].getLabel());
+        }
+        return vertex;
+    }
+
+    public ArrayList<String> getAllEdges(){
+        ArrayList<String> edge = new ArrayList<String>();
+
+        for (int i = 0; i < adjMat.length; i++){
+            for (int o = 0; o < adjMat[1].length ;o ++){
+                if(adjMat[i][o] == 1){
+                    edge.add("{\"from\": \""+ vertexList[i].getLabel() +"\", \"to\": \""+ vertexList[o].getLabel() +"\"}");
+                }
+            }
+        }
+        return edge;
     }
 }

@@ -3,7 +3,7 @@ package util;
 public class GraphView {
 
     public static int promptMaxVertices() {
-        return InputUtil.inputInt("Masukkan jumlah simpul minimal 3");
+        return InputUtil.inputInt("Masukkan maxsimal simpul");
     }
 
     public static String promptVertexType() {
