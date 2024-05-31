@@ -99,11 +99,12 @@ public class GraphServiceImpl implements GraphServices {
         return null;
     }
 
-
-    public ArrayList<String> getAllLabel(){
+    public  ArrayList<String> getAllLabel(String type) {
         ArrayList<String> vertex = new ArrayList<String>();
         for (int i = 0; i < nVerts; i++){
-            vertex.add(vertexList[i].getLabel());
+            if (type == null || vertexList[i].getClass().getSimpleName().equals(type)){
+                vertex.add(vertexList[i].getLabel());
+            }
         }
         return vertex;
     }

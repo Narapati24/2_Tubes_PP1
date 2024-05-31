@@ -13,7 +13,7 @@ public interface GraphServices {
     int vertexCount(); // Tambahkan metode untuk mendapatkan jumlah vertex
     String getVertexType(String label);
 
-    ArrayList<String> getAllLabel();
+    ArrayList<String> getAllLabel(String type);
 
     ArrayList<String> getAllEdges();
 }

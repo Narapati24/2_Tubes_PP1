@@ -17,37 +17,24 @@ public class GraphMain {
         }
 
         GraphServices graphServices = GraphServiceFactory.createGraphService(maxVerts);
+        addVertices(graphServices, maxVerts);
 
         while (true) {
-            addVertices(graphServices, maxVerts);
-            System.out.println("Pilih operasi selanjutnya:");
-            System.out.println("1. Tambah garis");
-            System.out.println("2. Tampilkan matriks ketetanggaan");
-            System.out.println("3. Selesai");
-            System.out.print("Pilih: ");
-            int operationChoice = InputUtil.inputInt("");
-
+            int operationChoice = MenuView.displayMenuUtama();
             switch (operationChoice) {
-                case 1:
-                    addEdges(graphServices);
-                    break;
-                case 2:
-                    GraphView.displayAdjacencyMatrix(graphServices.getAdjacencyMatrix());
-                    break;
-                case 3:
-                    GraphAPI.kirimData(graphServices.getAllLabel(), graphServices.getAllEdges());
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Pilihan tidak valid");
+                case 1 -> System.out.println(graphServices.getAllLabel(MenuView.displayMenuTampilSimpul()));
+                case 2 -> addEdges(graphServices);
+                case 3 -> GraphView.displayAdjacencyMatrix(graphServices.getAdjacencyMatrix());
+                case 4 -> System.exit(0);
+                default -> System.out.println("Pilihan tidak valid");
             }
         }
     }
 
     private static void addVertices(GraphServices graphServices, int maxVertices) {
         while (graphServices.vertexCount() < maxVertices) {
-            String name, expectedType = null;
-            int choice = MenuView.displayMenu();
+            String name, expectedType;
+            int choice = MenuView.displayMenuTambahSimpul();
             if (choice == 4) break;
             switch (choice) {
                 case 1 -> expectedType = "Dosen";
