@@ -1,18 +1,46 @@
-
 import entity.*;
-import java.util.ArrayList;
 import services.*;
 import util.*;
+import java.util.ArrayList;
+
 public class GraphMain {
     public static void main(String[] args) {
-       int maxVerts = GraphView.promptMaxVertices();
-       GraphServices graphServices = GraphServiceFactory.createGraphService(maxVerts);
+        int maxVerts;
+        while (true) {
+            maxVerts = GraphView.promptMaxVertices();
+            if (maxVerts < 2) {
+                System.out.println("Nilai minimal untuk jumlah total simpul adalah 2 dalam graf");
+            } else {
+                break;
+            }
+        }
 
-       addVertices(graphServices, maxVerts);
-       addEdges(graphServices);
+        GraphServices graphServices = GraphServiceFactory.createGraphService(maxVerts);
 
-       displayAdjacencyMatrix(graphServices);
-       GraphAPI.kirimData(graphServices.getAllLabel(), graphServices.getAllEdges());
+        while (true) {
+            addVertices(graphServices, maxVerts);
+            System.out.println("Pilih operasi selanjutnya:");
+            System.out.println("1. Tambah garis");
+            System.out.println("2. Tampilkan matriks ketetanggaan");
+            System.out.println("3. Selesai");
+            System.out.print("Pilih: ");
+            int operationChoice = InputUtil.inputInt("");
+
+            switch (operationChoice) {
+                case 1:
+                    addEdges(graphServices);
+                    break;
+                case 2:
+                    GraphView.displayAdjacencyMatrix(graphServices.getAdjacencyMatrix());
+                    break;
+                case 3:
+                    GraphAPI.kirimData(graphServices.getAllLabel(), graphServices.getAllEdges());
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid");
+            }
+        }
     }
 
     private static void addVertices(GraphServices graphServices, int maxVertices) {
@@ -20,7 +48,7 @@ public class GraphMain {
             String name, expectedType = null;
             int choice = MenuView.displayMenu();
             if (choice == 4) break;
-            switch (choice){
+            switch (choice) {
                 case 1 -> expectedType = "Dosen";
                 case 2 -> expectedType = "Mata Kuliah";
                 case 3 -> expectedType = "Mahasiswa";
@@ -37,38 +65,7 @@ public class GraphMain {
                 default -> System.out.println("Tipe vertex tidak valid.");
             }
         }
-
-        // Check if the user wants to add more vertices
-        //System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak): ");
-        //String response = InputUtil.inputString("");
-        //if (response.equalsIgnoreCase("ya")) {
-        //    while (graphServices.vertexCount() < maxVertices) {
-        //        String vertexType = GraphView.promptVertexType();
-        //        if (vertexType.equalsIgnoreCase("selesai")) {
-        //            break;
-        //        }
-        //        String name = GraphView.promptName(vertexType);
-        //        switch (vertexType) {
-        //            case "Dosen":
-        //                graphServices.addVertex(new Dosen(name));
-        //                break;
-        //            case "Mata Kuliah":
-        //                graphServices.addVertex(new Kelas(name));
-        //                break;
-        //            case "Mahasiswa":
-        //                graphServices.addVertex(new Mahasiswa(name));
-        //                break;
-        //            default:
-        //                System.out.println("Simpul tidak valid.");
-        //                break;
-        //        }
-        //   }
-        //}
     }
-
-
-
-
 
     private static void addEdges(GraphServices graphServices) {
         String edgeInput;
@@ -107,8 +104,8 @@ public class GraphMain {
             }
         }
     }
+
     private static void displayAdjacencyMatrix(GraphServices graphService) {
         GraphView.displayAdjacencyMatrix(graphService.getAdjacencyMatrix());
     }
 }
-
