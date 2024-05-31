@@ -6,10 +6,6 @@ public class GraphView {
         return InputUtil.inputInt("Masukkan maxsimal simpul");
     }
 
-    public static String promptVertexType() {
-        return InputUtil.inputString("Tambah Simpul (Dosen, Mata Kuliah, Mahasiswa) atau ketik 'selesai' untuk selesai");
-    }
-
     public static String promptName(String vertexType) {
         return InputUtil.inputString("Masukkan Nama " + vertexType );
     }

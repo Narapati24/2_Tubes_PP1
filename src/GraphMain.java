@@ -5,21 +5,38 @@ import util.*;
 public class GraphMain {
     public static void main(String[] args) {
         //reset
-       GraphAPI.kirimData("reset", "","");
-       int maxVerts = GraphView.promptMaxVertices();
-       GraphServices graphServices = GraphServiceFactory.createGraphService(maxVerts);
+        GraphAPI.kirimData("reset", "","");
+        int maxVerts;
+        while (true) {
+            maxVerts = GraphView.promptMaxVertices();
+            if (maxVerts < 2) {
+                System.out.println("Nilai minimal untuk jumlah total simpul adalah 2 dalam graf");
+            } else {
+                break;
+            }
+        }
 
-       addVertices(graphServices, maxVerts);
-       addEdges(graphServices);
-       displayAdjacencyMatrix(graphServices);
+        GraphServices graphServices = GraphServiceFactory.createGraphService(maxVerts);
+        addVertices(graphServices, maxVerts);
+
+        while (true) {
+            int operationChoice = MenuView.displayMenuUtama();
+            switch (operationChoice) {
+                case 1 -> System.out.println(graphServices.getAllLabel(MenuView.displayMenuTampilSimpul()));
+                case 2 -> addEdges(graphServices);
+                case 3 -> GraphView.displayAdjacencyMatrix(graphServices.getAdjacencyMatrix());
+                case 4 -> System.exit(0);
+                default -> System.out.println("Pilihan tidak valid");
+            }
+        }
     }
 
     private static void addVertices(GraphServices graphServices, int maxVertices) {
         while (graphServices.vertexCount() < maxVertices) {
-            String name, expectedType = null;
-            int choice = MenuView.displayMenu();
+            String name, expectedType;
+            int choice = MenuView.displayMenuTambahSimpul();
             if (choice == 4) break;
-            switch (choice){
+            switch (choice) {
                 case 1 -> expectedType = "Dosen";
                 case 2 -> expectedType = "Mata Kuliah";
                 case 3 -> expectedType = "Mahasiswa";
@@ -37,38 +54,7 @@ public class GraphMain {
             }
             GraphAPI.kirimData("addVertice", name,"");
         }
-
-        // Check if the user wants to add more vertices
-        //System.out.print("Apakah Anda ingin menambahkan lebih banyak simpul ? (ya/tidak): ");
-        //String response = InputUtil.inputString("");
-        //if (response.equalsIgnoreCase("ya")) {
-        //    while (graphServices.vertexCount() < maxVertices) {
-        //        String vertexType = GraphView.promptVertexType();
-        //        if (vertexType.equalsIgnoreCase("selesai")) {
-        //            break;
-        //        }
-        //        String name = GraphView.promptName(vertexType);
-        //        switch (vertexType) {
-        //            case "Dosen":
-        //                graphServices.addVertex(new Dosen(name));
-        //                break;
-        //            case "Mata Kuliah":
-        //                graphServices.addVertex(new Kelas(name));
-        //                break;
-        //            case "Mahasiswa":
-        //                graphServices.addVertex(new Mahasiswa(name));
-        //                break;
-        //            default:
-        //                System.out.println("Simpul tidak valid.");
-        //                break;
-        //        }
-        //   }
-        //}
     }
-
-
-
-
 
     private static void addEdges(GraphServices graphServices) {
         String edgeInput;
@@ -108,6 +94,7 @@ public class GraphMain {
             }
         }
     }
+
     private static void displayAdjacencyMatrix(GraphServices graphService) {
         GraphView.displayAdjacencyMatrix(graphService.getAdjacencyMatrix());
     }

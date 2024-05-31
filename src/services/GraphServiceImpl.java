@@ -99,11 +99,12 @@ public class GraphServiceImpl implements GraphServices {
         return null;
     }
 
-
-    public ArrayList<String> getAllLabel(){
+    public  ArrayList<String> getAllLabel(String type) {
         ArrayList<String> vertex = new ArrayList<String>();
-        for (int i = 0; i < vertexList.length; i++){
-            vertex.add(vertexList[i].getLabel());
+        for (int i = 0; i < nVerts; i++){
+            if (type == null || vertexList[i].getClass().getSimpleName().equals(type)){
+                vertex.add(vertexList[i].getLabel());
+            }
         }
         return vertex;
     }
@@ -111,8 +112,8 @@ public class GraphServiceImpl implements GraphServices {
     public ArrayList<String> getAllEdges(){
         ArrayList<String> edge = new ArrayList<String>();
 
-        for (int i = 0; i < adjMat.length; i++){
-            for (int o = 0; o < adjMat[1].length ;o ++){
+        for (int i = 0; i < nVerts; i++){
+            for (int o = 0; o < nVerts ;o ++){
                 if(adjMat[i][o] == 1){
                     edge.add("{\"from\": \""+ vertexList[i].getLabel() +"\", \"to\": \""+ vertexList[o].getLabel() +"\"}");
                 }
