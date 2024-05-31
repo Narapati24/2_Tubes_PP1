@@ -1,10 +1,11 @@
+
 import entity.*;
 import services.*;
 import util.*;
-import java.util.ArrayList;
-
 public class GraphMain {
     public static void main(String[] args) {
+        //reset
+        GraphAPI.kirimData("reset", "","");
         int maxVerts;
         while (true) {
             maxVerts = GraphView.promptMaxVertices();
@@ -64,6 +65,7 @@ public class GraphMain {
                 case "Mahasiswa" -> graphServices.addVertex(new Mahasiswa(name));
                 default -> System.out.println("Tipe vertex tidak valid.");
             }
+            GraphAPI.kirimData("addVertice", name,"");
         }
     }
 
@@ -99,6 +101,7 @@ public class GraphMain {
             if (!startType.equals(endType)) {
                 // Tambahkan edge ke dalam graf
                 graphServices.addEdge(startLabel, endLabel);
+                GraphAPI.kirimData("addEdge", startLabel, endLabel);
             } else {
                 GraphView.displayError("Tidak bisa menambahkan edge antara vertex dengan tipe yang sama");
             }
@@ -109,3 +112,4 @@ public class GraphMain {
         GraphView.displayAdjacencyMatrix(graphService.getAdjacencyMatrix());
     }
 }
+
