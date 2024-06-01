@@ -1,0 +1,6 @@
+[submodule "external repo/PP1-VISUAL"]
+	path = external repo/PP1-VISUAL
+	url = https://github.com/Rafliramdhani16/PP1-VISUAL
+[submodule "external repo/PP1-API"]
+	path = external repo/PP1-API
+	url = https://github.com/dhikaid/PP1_TUBES_VISUAL
