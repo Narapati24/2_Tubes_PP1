@@ -94,9 +94,5 @@ public class GraphMain {
             }
         }
     }
-
-    private static void displayAdjacencyMatrix(GraphServices graphService) {
-        GraphView.displayAdjacencyMatrix(graphService.getAdjacencyMatrix());
-    }
 }
 
